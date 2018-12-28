@@ -42,6 +42,50 @@ struct node * del_before(node_t * head){
     return ((struct node *)second); 
 }
 
+int del_last(node_t * head){
+    if (head->next == NULL){
+        free(head);
+    }
+    node_t * current = head;
+    while (current->next->next != NULL){
+        current = current->next;
+    }
+    free(current->next);
+    current->next = NULL;
+    return 0;
+}
+
+struct node * del_item(struct node * head, int value)
+{
+    if (!head) 
+        return NULL;
+
+    node_t * tmp = head;
+    node_t * prev = NULL;
+
+    while (tmp->val != value && tmp->next != NULL)
+    {
+        prev = tmp;
+        tmp = tmp->next;
+    }
+
+    if (tmp->val == value)
+    {
+        if (prev)
+        {
+            prev->next = tmp->next;
+        }
+        else
+        {
+            head = tmp->next;
+        }
+        free(tmp);
+    }
+
+    return NULL;
+}
+
+
 int main(){
     node_t *HEAD = NULL;
     HEAD = (struct node *)malloc(sizeof(node_t));
@@ -70,7 +114,15 @@ int main(){
     printf("\n");
     printf ("Print list after deleted HEAD of list:\n");
     print_list(HEAD);
-
+    del_last(HEAD);
+    printf("\n");
+    printf("Print list after last element from list was deleted:\n");
+    print_list(HEAD);
+    del_item(HEAD,2);
+    printf("\n");
+    printf("Print list after item with value of 2 is removed:\n");
+    print_list(HEAD);
+    
     free(HEAD);
 
     return 0;

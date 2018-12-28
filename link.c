@@ -63,20 +63,15 @@ struct node * del_item(struct node * head, int value)
     node_t * tmp = head;
     node_t * prev = NULL;
 
-    while (tmp->val != value && tmp->next != NULL)
-    {
+    while (tmp->val != value && tmp->next != NULL){
         prev = tmp;
         tmp = tmp->next;
     }
 
-    if (tmp->val == value)
-    {
-        if (prev)
-        {
+    if (tmp->val == value){
+        if (prev){
             prev->next = tmp->next;
-        }
-        else
-        {
+        } else {
             head = tmp->next;
         }
         free(tmp);
